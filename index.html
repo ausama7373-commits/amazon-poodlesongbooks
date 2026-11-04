@@ -21,38 +21,29 @@
                     <p class="text-xs text-slate-500">Official Amazon KDP Author Showcase</p>
                 </div>
             </div>
-            
-            <div class="flex items-center space-x-3">
-                <!-- 웹페이지 다이렉트 이미지 업로드 버튼 -->
-                <label for="imageUploader" class="cursor-pointer px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs rounded-full shadow-md transition flex items-center space-x-1.5">
-                    <i class="fa-solid fa-upload"></i>
-                    <span>📁 표지 이미지 선택하기</span>
-                </label>
-                <input type="file" id="imageUploader" accept="image/*" multiple class="hidden">
-
-                <div class="w-48 sm:w-64">
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
-                            <i class="fa-solid fa-search text-sm"></i>
-                        </span>
-                        <input type="text" id="searchInput" placeholder="Search..." 
-                            class="w-full pl-10 pr-4 py-2 bg-slate-100 border border-transparent rounded-full text-sm focus:outline-none focus:bg-white focus:border-orange-500 transition">
-                    </div>
+            <div class="w-72 sm:w-80">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-search text-sm"></i>
+                    </span>
+                    <input type="text" id="searchInput" placeholder="Search titles or ASIN..." 
+                        class="w-full pl-10 pr-4 py-2 bg-slate-100 border border-transparent rounded-full text-sm focus:outline-none focus:bg-white focus:border-orange-500 transition">
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-b from-white to-slate-100 py-10 border-b border-slate-200">
+    <section class="bg-gradient-to-b from-white to-slate-100 py-12 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
                 Engaging Books for Seniors & Kids
             </h2>
-            <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-6">
-                Explore activity books, puzzle collections, and children's stories written by <strong class="text-slate-900">Poodle Song</strong>.
+            <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-8">
+                Explore large print activity books, brain-training puzzle collections, vibrant dinosaur coloring adventures, and heartwarming children's stories written by <strong class="text-slate-900">Poodle Song</strong>.
             </p>
             
+            <!-- Category Filter Tabs -->
             <div class="flex flex-wrap justify-center gap-2" id="filterContainer">
                 <button data-category="all" class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-slate-900 text-white shadow-sm transition">All Books (8)</button>
                 <button data-category="seniors" class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition">🧠 Senior Puzzles & Brain Games</button>
@@ -63,35 +54,96 @@
     </section>
 
     <!-- Book Grid Section -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div id="bookGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+            <!-- Dynamically populated by JavaScript -->
         </div>
 
+        <!-- Empty Search Result State -->
         <div id="noResults" class="hidden text-center py-16">
             <div class="text-4xl mb-3">🔍</div>
             <h3 class="text-lg font-semibold text-slate-800">No books found</h3>
+            <p class="text-sm text-slate-500 mt-1">Try adjusting your search terms or selecting a different category.</p>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-8 mt-12 text-center text-sm text-slate-500">
-        &copy; 2026 <strong>Poodle Song</strong>. All rights reserved.
+    <footer class="bg-white border-t border-slate-200 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-slate-500">
+                &copy; 2026 <strong>Poodle Song</strong>. All rights reserved. Available exclusively on Amazon.
+            </p>
+        </div>
     </footer>
 
+    <!-- JavaScript Data & Direct 1-to-8 Image Mapping Logic -->
     <script>
         const books = [
-            { asin: "B0HNHSMQFJ", title: "Large Print Word Search for Seniors: 100 Nostalgic Puzzles", category: "seniors", price: "$7.99", description: "Brain Games for Adults, Full Solutions Included.", format: "Paperback" },
-            { asin: "B0HNFWZ572", title: "Dino Trucks Coloring Book: Cute Dinosaurs Driving Big Construction Vehicles", category: "coloring", price: "$6.99", description: "Fun Excavator and Bulldozer Coloring Pages for Kids Ages 4-8.", format: "Paperback" },
-            { asin: "B0HNFTVPY1", title: "Cheese's Little Journey: A Heartwarming Story of a Courageous Little Dog", category: "storybook", price: "$9.99", description: "A beautifully illustrated pastel children's storybook.", format: "Paperback" },
-            { asin: "B0HMW9W957", title: "Dinosaur Coloring Book: Cute Baby Dinosaur Coloring Pages for Toddlers", category: "coloring", price: "$6.99", description: "Perfect for Toddlers and Preschoolers.", format: "Paperback" },
-            { asin: "B0HMX43759", title: "Large Print Sudoku for Seniors: 150 Easy to Hard Puzzles", category: "seniors", price: "$7.99", description: "Relaxing Brain Exercise for Memory and Mental Agility.", format: "Paperback" },
-            { asin: "B0HNHSMQF2", title: "Cute Animal Mandalas Coloring Book for Stress Relief", category: "coloring", price: "$6.99", description: "Relaxing patterns featuring adorable pets.", format: "Paperback" },
-            { asin: "B0HNHSMQF3", title: "Senior Brain Games Mega Pack: Crosswords, Word Search & Sudoku", category: "seniors", price: "$8.99", description: "All-in-one mental workout designed specifically for seniors.", format: "Paperback" },
-            { asin: "B0HNHSMQF4", title: "Magical Forest Adventures: A Whimsical Coloring Book", category: "coloring", price: "$6.99", description: "Explore enchanted woodlands and meet friendly creatures.", format: "Paperback" }
+            {
+                asin: "B0HNHSMQFJ",
+                title: "Large Print Word Search for Seniors: 100 Nostalgic Puzzles with Easy-to-Read 20pt Type",
+                category: "seniors",
+                price: "$7.99",
+                description: "Brain Games for Adults, Full Solutions Included.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HNFWZ572",
+                title: "Dino Trucks Coloring Book: Cute Dinosaurs Driving Big Construction Vehicles",
+                category: "coloring",
+                price: "$6.99",
+                description: "Fun Excavator and Bulldozer Coloring Pages for Kids Ages 4-8.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HNFTVPY1",
+                title: "Cheese's Little Journey: A Heartwarming Story of a Courageous Little Dog",
+                category: "storybook",
+                price: "$9.99",
+                description: "A beautifully illustrated pastel children's storybook about courage and friendship.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HMW9W957",
+                title: "Dinosaur Coloring Book: Cute Baby Dinosaur Coloring Pages for Toddlers",
+                category: "coloring",
+                price: "$6.99",
+                description: "Perfect for Toddlers and Preschoolers who love prehistoric adventures.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HMX43759",
+                title: "Large Print Sudoku for Seniors: 150 Easy to Hard Puzzles with Large Grid",
+                category: "seniors",
+                price: "$7.99",
+                description: "Relaxing Brain Exercise for Memory and Mental Agility.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HNHSMQF2",
+                title: "Cute Animal Mandalas Coloring Book for Stress Relief and Relaxation",
+                category: "coloring",
+                price: "$6.99",
+                description: "Relaxing patterns featuring adorable pets and forest animals.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HNHSMQF3",
+                title: "Senior Brain Games Mega Pack: Crosswords, Word Search & Sudoku",
+                category: "seniors",
+                price: "$8.99",
+                description: "All-in-one mental workout designed specifically for seniors.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HNHSMQF4",
+                title: "Magical Forest Adventures: A Whimsical Coloring Book for Creative Minds",
+                category: "coloring",
+                price: "$6.99",
+                description: "Explore enchanted woodlands and meet friendly woodland creatures.",
+                format: "Paperback"
+            }
         ];
-
-        // 업로드된 이미지 저장 객체
-        const uploadedImages = {};
 
         function renderBooks(booksToRender) {
             const grid = document.getElementById('bookGrid');
@@ -106,16 +158,18 @@
             }
 
             booksToRender.forEach((book, index) => {
+                // 전체 책 목록에서의 원래 순번 (1부터 8까지) 계산
+                const originalIndex = books.findIndex(b => b.asin === book.asin) + 1;
+
                 const card = document.createElement('div');
                 card.className = "bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col overflow-hidden";
                 
-                const hasCustomImg = uploadedImages[index];
-
                 card.innerHTML = `
                     <div class="relative bg-slate-100 h-64 sm:h-72 flex items-center justify-center p-4 border-b border-slate-100 overflow-hidden group">
-                        <img src="${index + 1}.jpg" class="max-h-full max-w-full object-contain shadow-md rounded">
-                               </div>`
-                        }
+                        <!-- 업로드된 1.jpg ~ 8.jpg 파일을 순서대로 완벽 매칭 -->
+                        <img src="${originalIndex}.jpg" alt="${book.title}" 
+                             class="max-h-full max-w-full object-contain shadow-md rounded transition duration-300 group-hover:scale-105">
+                        
                         <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-semibold text-slate-700 shadow-sm">
                             ${book.format}
                         </span>
@@ -140,17 +194,37 @@
             });
         }
 
-        // 이미지 파일 업로드 이벤트 핸들러
-        document.getElementById('imageUploader').addEventListener('change', function(e) {
-            const files = Array.from(e.target.files);
-            files.forEach((file, idx) => {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    uploadedImages[idx] = event.target.result;
-                    renderBooks(books);
-                };
-                reader.readAsDataURL(file);
+        // Search & Filter Logic
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        function filterAndRender() {
+            const filtered = books.filter(book => {
+                const matchesCategory = currentCategory === 'all' || book.category === currentCategory;
+                const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      book.asin.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
             });
+            renderBooks(filtered);
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
+                    b.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                });
+                e.target.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                e.target.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
+                
+                currentCategory = e.target.getAttribute('data-category');
+                filterAndRender();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            filterAndRender();
         });
 
         renderBooks(books);
