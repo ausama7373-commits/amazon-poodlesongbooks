@@ -76,7 +76,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript Data & Direct 1-to-8 Image Mapping Logic -->
+    <!-- JavaScript Data & 1-to-1 Exact Image Mapping Logic -->
     <script>
         const books = [
             {
@@ -157,17 +157,18 @@
                 noResults.classList.add('hidden');
             }
 
-            booksToRender.forEach((book, index) => {
-                // 전체 책 목록에서의 원래 순번 (1부터 8까지) 계산
-                const originalIndex = books.findIndex(b => b.asin === book.asin) + 1;
+            booksToRender.forEach((book) => {
+                // 전체 books 배열에서 몇 번째 책인지 찾아서 정확히 1부터 8까지의 파일명 매칭 (1.jpg ~ 8.jpg)
+                const index = books.findIndex(b => b.asin === book.asin);
+                const imageFilename = `${index + 1}.jpg`;
 
                 const card = document.createElement('div');
                 card.className = "bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col overflow-hidden";
                 
                 card.innerHTML = `
                     <div class="relative bg-slate-100 h-64 sm:h-72 flex items-center justify-center p-4 border-b border-slate-100 overflow-hidden group">
-                        <!-- 업로드된 1.jpg ~ 8.jpg 파일을 순서대로 완벽 매칭 -->
-                        <img src="${originalIndex}.jpg" alt="${book.title}" 
+                        <!-- 1대1 완벽 매칭: 1.jpg부터 8.jpg까지 순서대로 출력 -->
+                        <img src="${imageFilename}" alt="${book.title}" 
                              class="max-h-full max-w-full object-contain shadow-md rounded transition duration-300 group-hover:scale-105">
                         
                         <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-semibold text-slate-700 shadow-sm">
