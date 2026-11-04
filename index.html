@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poodle Song - Author & Book Showcase</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff8f1',
+                            100: '#feecdc',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold text-xl shadow-md">
+                    🐾
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-slate-900">Poodle Song</h1>
+                    <p class="text-xs text-slate-500">Official Amazon KDP Author Showcase</p>
+                </div>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="flex items-center space-x-3">
+                <div class="relative w-48 sm:w-64">
+                    <input type="text" id="searchInput" placeholder="Search titles or ASIN..." 
+                           class="w-full pl-9 pr-4 py-1.5 text-sm bg-slate-100 border border-transparent rounded-full focus:bg-white focus:border-brand-500 focus:outline-none transition">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-400"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-b from-brand-50 via-slate-50 to-slate-50 py-12 sm:py-16 border-b border-slate-200/60">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <span class="inline-block px-3 py-1 bg-brand-100 text-brand-700 text-xs font-semibold rounded-full mb-3">
+                Amazon KDP Books Collection
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                Engaging Books for Seniors & Kids
+            </h2>
+            <p class="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+                Explore large print activity books, brain-training puzzle collections, vibrant dinosaur coloring adventures, and heartwarming children's stories written by <strong>Poodle Song</strong>.
+            </p>
+            
+            <!-- Category Filter Buttons -->
+            <div class="mt-8 flex flex-wrap justify-center gap-2" id="categoryButtons">
+                <button onclick="filterCategory('all')" class="cat-btn active px-4 py-2 text-sm font-medium rounded-full bg-slate-900 text-white shadow-sm transition">
+                    All Books (8)
+                </button>
+                <button onclick="filterCategory('seniors')" class="cat-btn px-4 py-2 text-sm font-medium rounded-full bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm transition">
+                    🧠 Senior Puzzles & Brain Games
+                </button>
+                <button onclick="filterCategory('coloring')" class="cat-btn px-4 py-2 text-sm font-medium rounded-full bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm transition">
+                    🎨 Kids Coloring Books
+                </button>
+                <button onclick="filterCategory('story')" class="cat-btn px-4 py-2 text-sm font-medium rounded-full bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm transition">
+                    📖 Children's Storybook
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Grid Section -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div id="bookGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+            <!-- Book cards will be dynamically populated by JavaScript -->
+        </div>
+
+        <!-- Empty Search Result State -->
+        <div id="noResults" class="hidden text-center py-16">
+            <div class="text-4xl mb-3">🔍</div>
+            <h3 class="text-lg font-semibold text-slate-800">No books found</h3>
+            <p class="text-sm text-slate-500 mt-1">Try adjusting your search terms or selecting a different category.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm text-slate-500">
+                &copy; 2026 <strong>Poodle Song</strong>. All rights reserved. Available exclusively on Amazon.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // Book Catalog Data directly extracted from Amazon KDP listings
+        const books = [
+            {
+                asin: "B0HNHSMQFJ",
+                title: "Large Print Word Search for Seniors: 100 Nostalgic Puzzles with Easy-to-Read 20pt Type",
+                category: "seniors",
+                price: "$7.99",
+                cover: "https://m.media-amazon.com/images/I/71Y83Q-y4nL._SL1500_.jpg",
+                description: "Brain Games for Adults, Full Solutions Included.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HNFWZ572",
+                title: "Dino Trucks Coloring Book: Cute Dinosaurs Driving Big Construction Vehicles",
+                category: "coloring",
+                price: "$6.99",
+                cover: "https://m.media-amazon.com/images/I/81xU2dGjvhL._SL1500_.jpg",
+                description: "Fun Excavator and Bulldozer Coloring Pages for Kids Ages 4-8.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HNFTVPY1",
+                title: "Cheese's Little Journey: A Heartwarming Story of a Brave Little Kitten",
+                category: "story",
+                price: "$9.99",
+                cover: "https://m.media-amazon.com/images/I/71wLp9t8F3L._SL1500_.jpg",
+                description: "A beautifully illustrated pastel children's storybook about courage and friendship.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HMW9W957",
+                title: "Dinosaur Coloring Book: Cute Baby Dinosaur Coloring Pages for Kids Ages 4-8",
+                category: "coloring",
+                price: "$6.99",
+                cover: "https://m.media-amazon.com/images/I/81pD5r5u7gL._SL1500_.jpg",
+                description: "Perfect for Toddlers and Preschoolers who love prehistoric adventures.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HQ12JDQM",
+                title: "Large Print Maze Book for Seniors: 100 Fun & Engaging Puzzles",
+                category: "seniors",
+                price: "$7.99",
+                cover: "https://m.media-amazon.com/images/I/71X8eZJgKyL._SL1500_.jpg",
+                description: "Bold Thick Lines and Extra-Wide Paths for Brain Fitness (Senior Edition).",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HQ1TW2MV",
+                title: "Large Print Sudoku Puzzle Book Vol 2: 100 Fun & Engaging Puzzles",
+                category: "seniors",
+                price: "$7.99",
+                cover: "https://m.media-amazon.com/images/I/71P46Q-aEAL._SL1500_.jpg",
+                description: "Solutions included for Seniors and Visually Impaired | 50 Easy & 50 Medium.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HP9P64F6",
+                title: "Large Print Word Search for Seniors Vol 2: 100 Relaxing Themed Puzzles",
+                category: "seniors",
+                price: "$7.99",
+                cover: "https://m.media-amazon.com/images/I/71h3K7+Y2VL._SL1500_.jpg",
+                description: "Giant 20-Point Print, Dementia-Friendly Brain Activities for Low Vision Care.",
+                format: "Paperback"
+            },
+            {
+                asin: "B0HP88LZTF",
+                title: "Large Print Sudoku Puzzle Book Vol 1: 100 Easy to Medium Puzzles",
+                category: "seniors",
+                price: "$7.99",
+                cover: "https://m.media-amazon.com/images/I/71VfF-tL4hL._SL1500_.jpg",
+                description: "Senior-Friendly Extra Large 9x9 Grids, Big Fonts, and Brain Training.",
+                format: "Paperback"
+            }
+        ];
+
+        let currentCategory = 'all';
+
+        // Render books grid
+        function renderBooks(filteredList) {
+            const grid = document.getElementById('bookGrid');
+            const noResults = document.getElementById('noResults');
+            grid.innerHTML = '';
+
+            if (filteredList.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            filteredList.forEach(book => {
+                const amazonUrl = `https://www.amazon.com/dp/${book.asin}`;
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
+
+                card.innerHTML = `
+                    <div>
+                        <div class="relative bg-slate-100 p-6 flex justify-center items-center h-64 overflow-hidden">
+                            <img src="${book.cover}" alt="${book.title}" 
+                                 class="max-h-full object-contain shadow-lg group-hover:scale-105 transition-transform duration-300"
+                                 onerror="this.src='https://via.placeholder.com/300x400?text=Book+Cover'">
+                            <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-slate-200">
+                                ${book.format}
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="text-xs font-medium text-brand-600 mb-1 tracking-wider uppercase">
+                                ASIN: ${book.asin}
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900 leading-snug line-clamp-2 group-hover:text-brand-600 transition-colors">
+                                ${book.title}
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-2 line-clamp-2">
+                                ${book.description}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5 pt-0 flex items-center justify-between border-t border-slate-100 mt-4 pt-3">
+                        <span class="text-lg font-extrabold text-slate-900">${book.price}</span>
+                        <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center space-x-1.5 bg-amber-400 hover:bg-amber-500 text-slate-900 text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition">
+                            <span>View on Amazon</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Category Filter Logic
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            // Update active button styles
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.className = "cat-btn px-4 py-2 text-sm font-medium rounded-full bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm transition";
+            });
+            event.currentTarget.className = "cat-btn active px-4 py-2 text-sm font-medium rounded-full bg-slate-900 text-white shadow-sm transition";
+
+            applyFilters();
+        }
+
+        // Search & Filter Handler
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = books.filter(book => {
+                const matchesCategory = currentCategory === 'all' || book.category === currentCategory;
+                const matchesSearch = book.title.toLowerCase().includes(query) || 
+                                      book.asin.toLowerCase().includes(query) || 
+                                      book.description.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+            renderBooks(filtered);
+        }
+
+        // Search input event listener
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+        // Initial render
+        renderBooks(books);
+    </script>
+</body>
+</html>
